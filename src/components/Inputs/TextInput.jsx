@@ -14,7 +14,12 @@ function TextInput(props) {
     <div className="Input">
       <div className="input-wrapper">
         {iconType()}
-        <input type="text" />
+        <input
+          type="text"
+          name={props.name}
+          value={props.value}
+          onChange={props.change}
+        />
       </div>
     </div>
   );
@@ -22,6 +27,7 @@ function TextInput(props) {
 
 TextInput.propTypes = {
   type: PropTypes.string,
+  name: PropTypes.string,
 };
 
 export default TextInput;
