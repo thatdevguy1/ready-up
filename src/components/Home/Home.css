@@ -1,0 +1,18 @@
+.Home {
+  overflow: auto;
+}
+
+button {
+  width: 100%;
+  padding: 20px 10px 20px 5px;
+  border-radius: 25px;
+  border: none;
+  background-color: rgb(252, 252, 252);
+  box-shadow: inset 8px 8px 8px #ffffff, inset -8px -8px 8px #cbced1;
+  transition: 0.3s;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+}
