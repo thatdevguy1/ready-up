@@ -5,6 +5,7 @@ const logger = require("morgan");
 
 require("dotenv").config();
 require("./backend/config/database.js");
+const socketCtrl = require("./backend/socket/socket");
 
 // Configure to use port 3001 instead of 3000 during
 // development to avoid collision with React's dev server
@@ -22,6 +23,8 @@ app.use(express.static(path.join(__dirname, "build")));
 
 app.use(require("./backend/config/auth"));
 
+app.use("/api/room", require("./backend/routes/api/rooms"));
+
 // The following "catch all" route (note the *)is necessary
 // for a SPA's client-side routing to properly work
 app.get("/*", function (req, res) {
@@ -34,8 +37,21 @@ const server = app.listen(port, () => {
 
 const io = require("./backend/config/socket").init(server);
 
+io.use(socketCtrl.usernameMiddleware);
+
 io.on("connection", (socket) => {
-  console.log("socket connection was made");
+  let users = [];
+
+  for (let [id, socket] of io.of("/").sockets) {
+    users.push({
+      userId: id,
+      username: socket.username,
+    });
+  }
+
+  socketCtrl.allUsers(socket, users);
+  socketCtrl.onConnection(socket);
+
   // socket.emit("welcome", "Welcome to my first socketio app");
   // socket.broadcast.emit("join", "Someone has joined the server");
   // socket.on("post", (data) => {

@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import Input from "../Inputs/TextInput";
-import { getRoom, createRoom } from "../../api/services";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./Home.css";
+import socketIo from "../../services/socket";
 
 function Home(props) {
+  const socket = socketIo.getSocket();
   const [inputs, setInputs] = useState({
     username: "",
     room: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setInputs({
@@ -18,12 +21,14 @@ function Home(props) {
   };
 
   const handleJoinRoom = () => {
-    //getRoom(<id>);
+    socket.auth = { username: inputs.username };
+    socket.connect();
   };
 
-  const handleCreateRoom = async () => {
-    const response = await createRoom;
-    console.log(response);
+  const handleCreateRoom = () => {
+    socket.auth = { username: inputs.username };
+    socket.connect();
+    navigate("/room");
   };
 
   return (
@@ -35,7 +40,7 @@ function Home(props) {
         value={inputs.username}
         change={handleChange}
       />
-      <button>Create</button>
+      <button onClick={handleCreateRoom}>Create</button>
       <h5 style={{ textAlign: "center" }}>or</h5>
       <h1>Join a Room</h1>
       <Input
@@ -50,7 +55,7 @@ function Home(props) {
         value={inputs.room}
         change={handleChange}
       />
-      <button onClick={handleCreateRoom}>Join</button>
+      <button>Join</button>
     </div>
   );
 }
