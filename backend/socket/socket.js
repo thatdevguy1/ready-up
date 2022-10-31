@@ -41,10 +41,10 @@ const createRoom = (socket, next) => {
 };
 
 //Broadcasts / Emits
-const allUsers = (socket, users) =>
-  socket.to(socket.room).emit("users", users[socket.room]);
+const allUsers = (io, socket, users) =>
+  socket.emit("users", users[socket.room]);
 
-const onConnection = (socket) =>
+const onConnection = (io, socket) =>
   socket.broadcast.to(socket.room).emit("user connected", {
     userId: socket.id,
     username: socket.username,

@@ -21,6 +21,11 @@ export default function Room(props) {
     socket.on("user connected", (user) => {
       setUsers((users) => sortUsers([...users, user]));
     });
+
+    return () => {
+      socket.off("users");
+      socket.off("user connected");
+    };
   }, []);
 
   const sortUsers = (newUsers) => {

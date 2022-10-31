@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Home from "./components/Home/Home.jsx";
 import Room from "./components/Room/Room.jsx";
 import "./App.css";
@@ -9,6 +9,7 @@ const socket = socketIo.init();
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [usernameAlreadySelected, setUsernameAlreadySelected] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -24,6 +25,7 @@ function App() {
         setUsernameAlreadySelected(false);
       }
       console.log(err.message);
+      navigate("/");
     });
 
     return () => {
@@ -34,9 +36,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    isConnected
-      ? console.log("user is connected")
-      : console.log("user is not connected");
+    isConnected ? console.log("user is connected") : navigate("/");
   }, [isConnected]);
 
   return (

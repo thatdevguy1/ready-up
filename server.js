@@ -59,8 +59,8 @@ io.on("connection", (socket) => {
   }
   console.log(users);
 
-  socketCtrl.allUsers(socket, users);
-  socketCtrl.onConnection(socket);
+  socketCtrl.allUsers(io, socket, users);
+  socketCtrl.onConnection(io, socket);
 
   // socket.emit("welcome", "Welcome to my first socketio app");
   // socket.broadcast.emit("join", "Someone has joined the server");
