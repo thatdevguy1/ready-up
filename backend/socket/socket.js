@@ -10,7 +10,6 @@ const setUserInfo = (socket, next) => {
 };
 
 const joinRoom = (socket, next) => {
-  console.log("join room reache");
   const reason = socket.handshake?.auth?.reason;
   const roomId = String(socket.handshake?.auth?.room);
   const roomIdSanitised = roomId.trim().toUpperCase();
@@ -23,7 +22,6 @@ const joinRoom = (socket, next) => {
 };
 
 const createRoom = (socket, next) => {
-  console.log("create reached");
   const reason = socket.handshake?.auth?.reason;
   if (!(reason === "create" || reason === undefined)) return next();
   while (true) {
@@ -49,7 +47,16 @@ const onConnection = (io, socket) =>
     username: socket.username,
   });
 
+const statusChange = (io, socket) =>
+  socket.on("status change", (status) => {
+    socket.broadcast.to(socket.room).emit("status change", {
+      status,
+      userId: socket.id,
+    });
+  });
+
 module.exports = {
+  statusChange,
   setUserInfo,
   joinRoom,
   allUsers,

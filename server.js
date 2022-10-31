@@ -61,6 +61,7 @@ io.on("connection", (socket) => {
 
   socketCtrl.allUsers(io, socket, users);
   socketCtrl.onConnection(io, socket);
+  socketCtrl.statusChange(io, socket);
 
   // socket.emit("welcome", "Welcome to my first socketio app");
   // socket.broadcast.emit("join", "Someone has joined the server");
