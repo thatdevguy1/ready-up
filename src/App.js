@@ -21,9 +21,9 @@ function App() {
 
     socket.on("connect_error", (err) => {
       if (err.message === "invalid username") {
-        console.log("username is invalid");
         setUsernameAlreadySelected(false);
       }
+      console.log(err.message);
     });
 
     return () => {

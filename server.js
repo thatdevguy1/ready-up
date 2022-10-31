@@ -37,17 +37,27 @@ const server = app.listen(port, () => {
 
 const io = require("./backend/config/socket").init(server);
 
-io.use(socketCtrl.usernameMiddleware);
+io.use(socketCtrl.setUserInfo);
+io.use(socketCtrl.joinRoom);
+io.use(socketCtrl.createRoom);
 
 io.on("connection", (socket) => {
-  let users = [];
+  let users = {};
 
   for (let [id, socket] of io.of("/").sockets) {
-    users.push({
-      userId: id,
-      username: socket.username,
-    });
+    users[socket.room]
+      ? users[socket.room].push({
+          userId: id,
+          username: socket.username,
+        })
+      : (users[socket.room] = [
+          {
+            userId: id,
+            username: socket.username,
+          },
+        ]);
   }
+  console.log(users);
 
   socketCtrl.allUsers(socket, users);
   socketCtrl.onConnection(socket);

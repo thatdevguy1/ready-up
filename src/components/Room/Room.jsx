@@ -4,11 +4,12 @@ import "./Room.css";
 import socketIo from "../../services/socket";
 
 export default function Room(props) {
-  const socket = socketIo.getSocket();
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    const socket = socketIo.getSocket();
     socket.on("users", (users) => {
+      console.log(users);
       users.forEach((user) => {
         user.self = user.userId === socket.id;
       });
@@ -18,16 +19,11 @@ export default function Room(props) {
     });
 
     socket.on("user connected", (user) => {
-      console.log("users when user on connect", users);
-      setUsers((users) => {
-        const sortedUsers = sortUsers([...users, user]);
-        return sortedUsers;
-      });
+      setUsers((users) => sortUsers([...users, user]));
     });
   }, []);
 
   const sortUsers = (newUsers) => {
-    console.log("newusers in sort function", newUsers);
     newUsers.sort((a, b) => {
       if (a.self) return -1;
       if (b.self) return 1;

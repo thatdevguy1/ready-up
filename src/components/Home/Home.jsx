@@ -21,12 +21,17 @@ function Home(props) {
   };
 
   const handleJoinRoom = () => {
-    socket.auth = { username: inputs.username };
+    socket.auth = {
+      username: inputs.username,
+      room: inputs.room,
+      reason: "join",
+    };
     socket.connect();
+    navigate("/room");
   };
 
   const handleCreateRoom = () => {
-    socket.auth = { username: inputs.username };
+    socket.auth = { username: inputs.username, reason: "create" };
     socket.connect();
     navigate("/room");
   };
@@ -55,7 +60,7 @@ function Home(props) {
         value={inputs.room}
         change={handleChange}
       />
-      <button>Join</button>
+      <button onClick={handleJoinRoom}>Join</button>
     </div>
   );
 }
