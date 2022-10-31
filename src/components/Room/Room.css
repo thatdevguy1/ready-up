@@ -1,0 +1,9 @@
+.message-box {
+  padding: 20px;
+  width: 100%;
+  border: solid 1px black;
+  border-radius: 25px;
+  min-height: 120px;
+  margin: 20px 0;
+  background-color: white;
+}

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Room.css";
 import socketIo from "../../services/socket";
+import Message from "../Icons/Message";
 
 export default function Room(props) {
   let socket = socketIo.getSocket();
@@ -9,15 +10,17 @@ export default function Room(props) {
   const notReadyColor = "#ffcc00";
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState(null);
+  const [room, setRoom] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    socket.on("users", (users) => {
-      console.log(users);
-      users.forEach((user) => {
+    socket.on("users", (data) => {
+      setRoom(data.room);
+      data.users.forEach((user) => {
         user.self = user.userId === socket.id;
       });
 
-      const sortedUsers = sortUsers(users);
+      const sortedUsers = sortUsers(data.users);
       setUsers(sortedUsers);
     });
 
@@ -35,28 +38,60 @@ export default function Room(props) {
       });
     });
 
+    socket.on("message post", (message) => {
+      setMessage(message);
+    });
+
     return () => {
       socket.off("users");
       socket.off("user connected");
       socket.off("status change");
+      socket.off("message post");
     };
   }, []);
 
+  //Use a use effect with a dependency on the status state to send a single socket.emit
   const handleClick = (e) => {
     const self = users.find((user) => user.self);
     if (e.target.getAttribute("data-user-id") !== self.userId) return;
     if (status === null) {
       e.target.style.backgroundColor = readyColor;
       setStatus("ready");
+      socket.emit("status change", "ready");
     } else if (status === "ready") {
       e.target.style.backgroundColor = notReadyColor;
       setStatus("not ready");
+      socket.emit("status change", "not ready");
     } else {
       e.target.style.backgroundColor = "transparent";
       setStatus(null);
+      socket.emit("status change", null);
     }
+  };
 
-    socket.emit("status change", status);
+  const handleMessagePost = (e) => {
+    socket.emit("message post", message);
+  };
+
+  const handleSetMessage = (e) => {
+    setMessage(e.target.value);
+  };
+
+  const creatorView = () => {
+    const self = users.find((user) => user.self);
+    return self?.creator ? (
+      <>
+        <div className="Input">
+          <div className="input-wrapper">
+            <Message />
+            <input type="text" value={message} onChange={handleSetMessage} />
+          </div>
+        </div>
+        <button onClick={handleMessagePost}>Post</button>
+      </>
+    ) : (
+      <></>
+    );
   };
 
   const sortUsers = (newUsers) => {
@@ -88,8 +123,11 @@ export default function Room(props) {
 
   return (
     <div>
-      <h1>Room</h1>
+      <h1>Room: {room}</h1>
+
       <h2>MessageBox</h2>
+      <div className="message-box">{message}</div>
+      {creatorView()}
       <ul>
         {users.map((user) => (
           <li

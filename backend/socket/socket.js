@@ -37,9 +37,9 @@ const createRoom = (socket, next) => {
   next();
 };
 
-//Broadcasts / Emits
+//Broadcasts & Emits
 const allUsers = (io, socket, users) =>
-  socket.emit("users", users[socket.room]);
+  socket.emit("users", { users: users[socket.room], room: socket.room });
 
 const onConnection = (io, socket) =>
   socket.broadcast.to(socket.room).emit("user connected", {
@@ -55,7 +55,13 @@ const statusChange = (io, socket) =>
     });
   });
 
+const messagePost = (io, socket) =>
+  socket.on("message post", (message) => {
+    socket.broadcast.to(socket.room).emit("message post", message);
+  });
+
 module.exports = {
+  messagePost,
   statusChange,
   setUserInfo,
   joinRoom,
