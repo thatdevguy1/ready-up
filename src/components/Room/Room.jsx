@@ -4,7 +4,10 @@ import "./Room.css";
 import socketIo from "../../services/socket";
 
 export default function Room(props) {
+  const readyColor = "#00e600";
+  const notReadyColor = "#ffcc00";
   const [users, setUsers] = useState([]);
+  const [status, setStatus] = useState(null);
 
   useEffect(() => {
     const socket = socketIo.getSocket();
@@ -28,6 +31,22 @@ export default function Room(props) {
     };
   }, []);
 
+  const handleClick = (e) => {
+    const self = users.find((user) => user.self);
+    if (e.target.getAttribute("data-user-id") !== self.userId) return;
+    console.log("clicked");
+    if (status === null) {
+      e.target.style.backgroundColor = readyColor;
+      setStatus("ready");
+    } else if (status === "ready") {
+      e.target.style.backgroundColor = notReadyColor;
+      setStatus("notReady");
+    } else {
+      e.target.style.backgroundColor = "transparent";
+      setStatus(null);
+    }
+  };
+
   const sortUsers = (newUsers) => {
     newUsers.sort((a, b) => {
       if (a.self) return -1;
@@ -44,7 +63,13 @@ export default function Room(props) {
       <h2>MessageBox</h2>
       <ul>
         {users.map((user) => (
-          <li key={user.userId}>{user.username}</li>
+          <li
+            onClick={handleClick}
+            key={user.userId}
+            data-user-id={user.userId}
+          >
+            {user.username}
+          </li>
         ))}
       </ul>
     </div>

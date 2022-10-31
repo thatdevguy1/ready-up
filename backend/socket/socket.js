@@ -29,7 +29,6 @@ const createRoom = (socket, next) => {
   while (true) {
     const roomId = String(uuid()).slice(0, 4).toUpperCase();
     if (!rooms.includes(roomId)) {
-      console.log(rooms);
       rooms.push(roomId);
       socket.room = roomId;
       socket.join(roomId);
