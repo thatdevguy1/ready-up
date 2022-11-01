@@ -7,3 +7,31 @@
   margin: 20px 0;
   background-color: white;
 }
+
+.Room li:hover {
+  cursor: pointer;
+}
+
+.Room .bottom-btn-wrapper {
+  display: flex;
+  position: fixed;
+  bottom: 25px;
+  left: 0;
+
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.Room .bottom-btn-wrapper .bottom-btn {
+  width: 28%;
+}
+
+.Room .ready-btn {
+  background: #00e600;
+  box-shadow: inset 8px 8px 12px #77ff77, inset -8px -5px 20px #117b11;
+}
+
+.Room .not-ready-btn {
+  background: #ffcc00;
+  box-shadow: inset 8px 8px 12px #ffe681, inset -8px -5px 20px #917812;
+}

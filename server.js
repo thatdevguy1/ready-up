@@ -65,10 +65,4 @@ io.on("connection", (socket) => {
   socketCtrl.onConnection(io, socket);
   socketCtrl.statusChange(io, socket);
   socketCtrl.messagePost(io, socket);
-
-  // socket.emit("welcome", "Welcome to my first socketio app");
-  // socket.broadcast.emit("join", "Someone has joined the server");
-  // socket.on("post", (data) => {
-  //   io.emit("newPost", data);
-  // });
 });

@@ -9,7 +9,6 @@ export default function Room(props) {
   const readyColor = "#00e600";
   const notReadyColor = "#ffcc00";
   const [users, setUsers] = useState([]);
-  const [status, setStatus] = useState(null);
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
 
@@ -36,6 +35,8 @@ export default function Room(props) {
         });
         return newUsers;
       });
+
+      //setStatus(null);
     });
 
     socket.on("message post", (message) => {
@@ -50,24 +51,15 @@ export default function Room(props) {
     };
   }, []);
 
-  //Use a use effect with a dependency on the status state to send a single socket.emit
-  const handleClick = (e) => {
-    const self = users.find((user) => user.self);
-    if (e.target.getAttribute("data-user-id") !== self.userId) return;
-    if (status === null) {
-      e.target.style.backgroundColor = readyColor;
-      setStatus("ready");
-      socket.emit("status change", "ready");
-    } else if (status === "ready") {
-      e.target.style.backgroundColor = notReadyColor;
-      setStatus("not ready");
-      socket.emit("status change", "not ready");
-    } else {
-      e.target.style.backgroundColor = "transparent";
-      setStatus(null);
-      socket.emit("status change", null);
-    }
-  };
+  useEffect(() => {
+    setUsers((users) => {
+      const statusResetUsers = users.map((user) => {
+        return { ...user, status: null };
+      });
+      console.log(statusResetUsers);
+      return statusResetUsers;
+    });
+  }, [message]);
 
   const handleMessagePost = (e) => {
     socket.emit("message post", message);
@@ -121,8 +113,28 @@ export default function Room(props) {
     }
   };
 
+  const handleStatusClick = (e) => {
+    const self = users.find((user) => user.self);
+    if (e.target.getAttribute("data-status") === "ready") {
+      e.target.style.backgroundColor = readyColor;
+      self.status = "ready";
+      socket.emit("status change", "ready");
+    } else if (e.target.getAttribute("data-status") === "not ready") {
+      e.target.style.backgroundColor = notReadyColor;
+      self.status = "not ready";
+      socket.emit("status change", "not ready");
+    } else {
+      e.target.style.backgroundColor = "transparent";
+      self.status = null;
+      socket.emit("status change", null);
+    }
+    setUsers((users) =>
+      users.map((user) => (user.userId === self.userId ? self : user))
+    );
+  };
+
   return (
-    <div>
+    <div className="Room">
       <h1>Room: {room}</h1>
 
       <h2>MessageBox</h2>
@@ -131,7 +143,6 @@ export default function Room(props) {
       <ul>
         {users.map((user) => (
           <li
-            onClick={handleClick}
             key={user.userId}
             data-user-id={user.userId}
             style={{ backgroundColor: setStatusColor(user.status) }}
@@ -140,6 +151,29 @@ export default function Room(props) {
           </li>
         ))}
       </ul>
+      <div className="bottom-btn-wrapper">
+        <button
+          className="ready-btn bottom-btn"
+          onClick={handleStatusClick}
+          data-status="ready"
+        >
+          Ready
+        </button>
+        <button
+          className="not-ready-btn bottom-btn"
+          onClick={handleStatusClick}
+          data-status="not ready"
+        >
+          More Time
+        </button>
+        <button
+          className="clear-btn bottom-btn"
+          onClick={handleStatusClick}
+          data-status="null"
+        >
+          Clear
+        </button>
+      </div>
     </div>
   );
 }
