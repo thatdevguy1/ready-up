@@ -3,7 +3,7 @@ let socket;
 
 export default {
   init: () => {
-    socket = io("http://localhost:3001/", { autoConnect: false });
+    socket = io("https://readyup-rooms.herokuapp.com/", { autoConnect: false });
     return socket;
   },
   getSocket: () => socket,
