@@ -61,6 +61,7 @@ io.on("connection", (socket) => {
   }
   console.log(users);
 
+  socketCtrl.onDisconnect(io, socket, users);
   socketCtrl.allUsers(io, socket, users);
   socketCtrl.onConnection(io, socket);
   socketCtrl.statusChange(io, socket);

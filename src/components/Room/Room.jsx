@@ -14,6 +14,7 @@ export default function Room(props) {
 
   useEffect(() => {
     socket.on("users", (data) => {
+      console.log("users updated: ", users);
       setRoom(data.room);
       data.users.forEach((user) => {
         user.self = user.userId === socket.id;

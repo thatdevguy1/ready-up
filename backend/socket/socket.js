@@ -47,6 +47,19 @@ const onConnection = (io, socket) =>
     username: socket.username,
   });
 
+const onDisconnect = (io, socket, users) =>
+  socket.on("disconnect", () => {
+    const userIdx = users[socket.room].findIndex(
+      (user) => user.userId === socket.id
+    );
+    users[socket.room].splice(userIdx, 1);
+    console.log(users);
+    io.to(socket.room).emit("users", {
+      users: users[socket.room],
+      room: socket.room,
+    });
+  });
+
 const statusChange = (io, socket) =>
   socket.on("status change", (status) => {
     socket.broadcast.to(socket.room).emit("status change", {
@@ -68,4 +81,5 @@ module.exports = {
   allUsers,
   onConnection,
   createRoom,
+  onDisconnect,
 };
