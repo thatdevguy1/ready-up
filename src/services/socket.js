@@ -3,7 +3,7 @@ let socket;
 
 export default {
   init: () => {
-    socket = io("/", { autoConnect: false });
+    socket = io({ autoConnect: false });
     return socket;
   },
   getSocket: () => socket,
