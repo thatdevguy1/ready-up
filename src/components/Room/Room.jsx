@@ -27,6 +27,16 @@ export default function Room(props) {
       setUsers((users) => sortUsers([...users, user]));
     });
 
+    socket.on("user disconnected", (userId) => {
+      console.log("user disconnected");
+      setUsers((users) => {
+        const userIdx = users.findIndex((user) => user.userId === userId);
+        users.splice(userIdx, 1);
+        console.log(userIdx);
+        return [...users];
+      });
+    });
+
     socket.on("status change", (data) => {
       setUsers((users) => {
         const newUsers = users.map((user) => {
@@ -48,6 +58,7 @@ export default function Room(props) {
       socket.off("user connected");
       socket.off("status change");
       socket.off("message post");
+      socket.disconnect();
     };
   }, []);
 

@@ -41,7 +41,9 @@ io.use(socketCtrl.setUserInfo);
 io.use(socketCtrl.joinRoom);
 io.use(socketCtrl.createRoom);
 
+let counter = 0;
 io.on("connection", (socket) => {
+  counter++;
   let users = {};
 
   for (let [id, socket] of io.of("/").sockets) {
@@ -59,9 +61,9 @@ io.on("connection", (socket) => {
           },
         ]);
   }
-  console.log(users);
+  console.log("users from connection: ", counter, users);
 
-  socketCtrl.onDisconnect(io, socket, users);
+  socketCtrl.onDisconnect(io, socket);
   socketCtrl.allUsers(io, socket, users);
   socketCtrl.onConnection(io, socket);
   socketCtrl.statusChange(io, socket);
