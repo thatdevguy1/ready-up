@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../Inputs/TextInput";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import "./Home.css";
 import socketIo from "../../services/socket";
 
 function Home(props) {
-  const socket = socketIo.getSocket();
+  let socket = socketIo.getSocket();
   const [inputs, setInputs] = useState({
     username: "",
     room: "",

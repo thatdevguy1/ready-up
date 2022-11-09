@@ -47,17 +47,9 @@ const onConnection = (io, socket) =>
     username: socket.username,
   });
 
-const onDisconnect = (io, socket, users) =>
+const onDisconnect = (io, socket) =>
   socket.on("disconnect", () => {
-    const userIdx = users[socket.room].findIndex(
-      (user) => user.userId === socket.id
-    );
-    users[socket.room].splice(userIdx, 1);
-    console.log(users);
-    io.to(socket.room).emit("users", {
-      users: users[socket.room],
-      room: socket.room,
-    });
+    io.to(socket.room).emit("user disconnected", socket.id);
   });
 
 const statusChange = (io, socket) =>
