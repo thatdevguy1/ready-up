@@ -11,6 +11,7 @@ export default function Room(props) {
   const [users, setUsers] = useState([]);
   const [room, setRoom] = useState("");
   const [message, setMessage] = useState("");
+  const [animateMessage, setAnimateMessage] = useState(false);
 
   useEffect(() => {
     socket.on("users", (data) => {
@@ -45,8 +46,6 @@ export default function Room(props) {
         });
         return newUsers;
       });
-
-      //setStatus(null);
     });
 
     socket.on("message post", (message) => {
@@ -70,6 +69,9 @@ export default function Room(props) {
       console.log(statusResetUsers);
       return statusResetUsers;
     });
+    if (message) {
+      setAnimateMessage(true);
+    }
   }, [message]);
 
   const handleMessagePost = (e) => {
@@ -142,6 +144,7 @@ export default function Room(props) {
     setUsers((users) =>
       users.map((user) => (user.userId === self.userId ? self : user))
     );
+    setAnimateMessage(false);
   };
 
   return (
@@ -149,7 +152,7 @@ export default function Room(props) {
       <h1>Room: {room}</h1>
 
       <h2>participants: {users.length}</h2>
-      <div className="message-box">
+      <div className={animateMessage ? "message-box is-active" : "message-box"}>
         <h3>{message}</h3>
       </div>
       {creatorView()}
