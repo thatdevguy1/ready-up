@@ -1,10 +1,10 @@
 .message-box {
   padding: 20px;
-  width: 100%;
-  border: solid 1px rgb(163, 163, 163);
+  width: 50%;
+  border: solid 2px rgb(167, 167, 167);
   border-radius: 25px;
   min-height: 120px;
-  margin: 20px 0;
+  margin: 20px auto;
   background-color: rgb(255, 255, 255);
 }
 
@@ -47,4 +47,64 @@
   margin: 10px 0;
   list-style: none;
   padding: 15px 0;
+}
+
+/* Animation by Jerry Jones: https://codepen.io/jeryj/pen/LzPjdJ */
+.Room .message-box.is-active {
+  animation: shockwaveJump 1s ease-out infinite;
+}
+.Room .message-box.is-active :after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 25px;
+  animation: shockwave 1s 0.65s ease-out infinite;
+}
+
+.Room .message-box.is-active :before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 25px;
+  animation: shockwave 1s 0.5s ease-out infinite;
+}
+
+@keyframes shockwaveJump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.01);
+  }
+  50% {
+    transform: scale(0.99);
+  }
+  55% {
+    transform: scale(1.01);
+  }
+  60% {
+    transform: scale(0.99);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shockwave {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.15), inset 0 0 1px rgba(0, 0, 0, 0.15);
+  }
+  95% {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0), inset 0 0 10px rgba(0, 0, 0, 0);
+  }
+  100% {
+    transform: scale(1.45);
+  }
 }
