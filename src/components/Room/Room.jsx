@@ -148,8 +148,10 @@ export default function Room(props) {
     <div className="Room">
       <h1>Room: {room}</h1>
 
-      <h2>MessageBox</h2>
-      <div className="message-box">{message}</div>
+      <h2>participants: {users.length}</h2>
+      <div className="message-box">
+        <h3>{message}</h3>
+      </div>
       {creatorView()}
       <ul>
         {users.map((user) => (
