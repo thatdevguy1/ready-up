@@ -4,7 +4,7 @@ const favicon = require("serve-favicon");
 const logger = require("morgan");
 
 require("dotenv").config();
-require("./backend/config/database.js");
+// require("./backend/config/database.js");
 const socketCtrl = require("./backend/socket/socket");
 
 // Configure to use port 3001 instead of 3000 during
