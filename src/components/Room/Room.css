@@ -38,15 +38,13 @@
 
 .Room ul {
   padding: 0;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .Room li {
   border: 2px solid rgb(165, 165, 165);
   text-align: center;
   border-radius: 25px;
-  margin: 10px 10px;
+  margin: 10px 0;
   list-style: none;
   padding: 15px 0;
 }
@@ -108,5 +106,16 @@
   }
   100% {
     transform: scale(1.45);
+  }
+}
+
+@media only screen and (min-width: 680px) {
+  .Room ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .Room li{
+    margin: 10px
   }
 }
