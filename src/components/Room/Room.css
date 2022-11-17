@@ -37,7 +37,7 @@
 }
 
 .Room ul {
-  padding: 0;
+  padding: 0 0 200px 0;
 }
 
 .Room li {
@@ -106,5 +106,16 @@
   }
   100% {
     transform: scale(1.45);
+  }
+}
+
+@media only screen and (min-width: 680px) {
+  .Room ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .Room li{
+    margin: 10px
   }
 }
