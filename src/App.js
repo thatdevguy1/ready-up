@@ -24,7 +24,7 @@ function App() {
       if (err.message === "invalid username") {
         setUsernameAlreadySelected(false);
       }
-      console.log(err.message);
+      console.log(err);
       navigate("/");
     });
 

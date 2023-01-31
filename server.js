@@ -43,6 +43,7 @@ io.use(socketCtrl.createRoom);
 
 let counter = 0;
 io.on("connection", (socket) => {
+  console.log("something")
   counter++;
   let users = {};
 
