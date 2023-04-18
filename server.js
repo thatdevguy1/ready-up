@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const favicon = require("serve-favicon");
 const logger = require("morgan");
+const client = require("redis").createClient();
 
 require("dotenv").config();
 // require("./backend/config/database.js");
@@ -12,9 +13,10 @@ const socketCtrl = require("./backend/socket/socket");
 const port = process.env.PORT || 3001;
 
 const app = express();
-
+client.on("error", (err) => console.log("Redis Client Error", err));
 app.use(logger("dev"));
 app.use(express.json());
+app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
 
 // Configure both serve-favicon & static middlewares
 // to serve from the production 'build' folder
@@ -41,10 +43,12 @@ io.use(socketCtrl.setUserInfo);
 io.use(socketCtrl.joinRoom);
 io.use(socketCtrl.createRoom);
 
-let counter = 0;
-io.on("connection", (socket) => {
-  counter++;
-  let users = {};
+io.on("connection", async (socket) => {
+  await client.connect();
+
+  // let users = await client.get('users');
+
+  users = {};
 
   for (let [id, socket] of io.of("/").sockets) {
     users[socket.room]
@@ -61,7 +65,13 @@ io.on("connection", (socket) => {
           },
         ]);
   }
-  console.log("users from connection: ", counter, users);
+  console.log("users", users);
+
+  const jsonUsers = JSON.stringify(users);
+
+  await client.set("users", jsonUsers);
+
+  await client.disconnect();
 
   socketCtrl.onDisconnect(io, socket);
   socketCtrl.allUsers(io, socket, users);
