@@ -43,7 +43,9 @@ function App() {
 
   return (
     <div className="App">
-      <h4 style={{ color: "red", textAlign: "center" }}>{errMsg}</h4>
+      <h4 style={{ color: "red", right: 15, top: 0, position: "absolute" }}>
+        {errMsg}
+      </h4>
       <Routes>
         <Route path="/" element={<Home setErrMsg={setErrMsg} />} />
         <Route path="/room" element={<Room />} />

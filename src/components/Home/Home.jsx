@@ -61,6 +61,7 @@ function Home({ setErrMsg }) {
   };
 
   const handleJoinRoom = () => {
+    if (!inputsRef.current.username) return setErrMsg("Invalid username");
     socket.auth = {
       username: inputsRef.current.username,
       room: inputsRef.current.room,
@@ -71,20 +72,20 @@ function Home({ setErrMsg }) {
   };
 
   const handleJoin = () => {
-    console.log("handle join");
+    if (!inputsRef.current.username) return setErrMsg("Invalid username");
     setJoinSelected(true);
   };
 
   const handleCreateRoom = () => {
-    console.log("handle create");
-    socket.auth = { username: inputs.username, reason: "create" };
+    if (!inputsRef.current.username) return setErrMsg("Invalid username");
+    socket.auth = { username: inputsRef.current.username, reason: "create" };
     socket.connect();
     navigate("/room");
   };
 
   return (
     <div className="Home">
-      <h1>Ready Up Rooms!</h1>
+      <h1>Ready Up Rooms</h1>
       <form>
         <Input
           type="user"
