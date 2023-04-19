@@ -2,18 +2,21 @@
   overflow: auto;
 }
 
-button {
+.Home button {
+  width: 48%;
+}
+
+.Home .btn-wrapper {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  padding: 20px 10px 20px 5px;
-  border-radius: 25px;
-  border: none;
-  background-color: rgb(241, 241, 241);
-  box-shadow: inset 8px 8px 12px #ffffff, inset -8px -5px 20px #cbced1;
-  transition: 0.3s;
-  color: rgb(16, 16, 16);
 }
 
 button:hover {
   cursor: pointer;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+}
+
+btn {
+  background-color: #759bc2;
 }

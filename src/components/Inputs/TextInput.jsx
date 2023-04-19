@@ -19,6 +19,8 @@ function TextInput(props) {
           name={props.name}
           value={props.value}
           onChange={props.change}
+          placeholder={props.placeholder}
+          autoComplete="off"
         />
       </div>
     </div>

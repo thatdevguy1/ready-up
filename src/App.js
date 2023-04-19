@@ -9,6 +9,7 @@ const socket = socketIo.init();
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [usernameAlreadySelected, setUsernameAlreadySelected] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
         setUsernameAlreadySelected(false);
       }
       console.log(err.message);
+      setErrMsg(err.message);
       navigate("/");
     });
 
@@ -41,8 +43,9 @@ function App() {
 
   return (
     <div className="App">
+      <h4 style={{ color: "red", textAlign: "center" }}>{errMsg}</h4>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setErrMsg={setErrMsg} />} />
         <Route path="/room" element={<Room />} />
       </Routes>
     </div>

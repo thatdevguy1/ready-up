@@ -26,12 +26,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-<<<<<<< Updated upstream
     "start": "react-scripts start",
-=======
-    "start": "node server",
-    "start:dev": "react-scripts start",
->>>>>>> Stashed changes
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
