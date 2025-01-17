@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Input from "../Inputs/TextInput";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import "./Home.css";
 import socketIo from "../../services/socket";
+import Toggle from "../Toggle/Toggle";
+import CreateView from "../Create-View/CreateView";
+import JoinView from "../Join-View/JoinView";
 
 function Home(props) {
   let socket = socketIo.getSocket();
+  const [alignment, setAlignment] = React.useState("Create");
   const [inputs, setInputs] = useState({
     username: "",
     room: "",
@@ -31,6 +34,7 @@ function Home(props) {
   };
 
   const handleCreateRoom = () => {
+    console.log("creating room");
     socket.auth = { username: inputs.username, reason: "create" };
     socket.connect();
     navigate("/room");
@@ -38,29 +42,22 @@ function Home(props) {
 
   return (
     <div className="Home">
-      <h1>Create a Room</h1>
-      <Input
-        type="user"
-        name={"username"}
-        value={inputs.username}
-        change={handleChange}
-      />
-      <button onClick={handleCreateRoom}>Create</button>
-      <h5 style={{ textAlign: "center" }}>or</h5>
-      <h1>Join a Room</h1>
-      <Input
-        type="user"
-        name={"username"}
-        value={inputs.username}
-        change={handleChange}
-      />
-      <Input
-        type="search"
-        name={"room"}
-        value={inputs.room}
-        change={handleChange}
-      />
-      <button onClick={handleJoinRoom}>Join</button>
+      <Toggle alignment={alignment} setAlignment={setAlignment} />
+      {alignment === "Create" && (
+        <CreateView
+          inputs={inputs}
+          handleChange={handleChange}
+          handleCreateRoom={handleCreateRoom}
+        />
+      )}
+      {alignment === "Join" && (
+        <JoinView
+          inputs={inputs}
+          handleChange={handleChange}
+          handleJoinRoom={handleJoinRoom}
+        />
+      )}
+      {alignment === null && <h1>Choose an option</h1>}
     </div>
   );
 }

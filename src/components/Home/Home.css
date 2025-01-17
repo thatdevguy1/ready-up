@@ -1,7 +1,19 @@
 .Home {
-  overflow: auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.Home > .room-form {
+  height: calc(100vh - 49px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 49px;
+}
+/* 
 button {
   width: 100%;
   padding: 20px 10px 20px 5px;
@@ -11,9 +23,9 @@ button {
   box-shadow: inset 8px 8px 12px #ffffff, inset -8px -5px 20px #cbced1;
   transition: 0.3s;
   color: rgb(16, 16, 16);
-}
+} */
 
-button:hover {
+/* button:hover {
   cursor: pointer;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-}
+} */

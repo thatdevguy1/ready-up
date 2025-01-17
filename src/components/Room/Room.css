@@ -1,6 +1,10 @@
+.Room {
+  box-sizing: border-box;
+  padding: 15px 20px 0;
+}
+
 .message-box {
-  padding: 20px;
-  width: 50%;
+  width: 100%;
   border: solid 2px rgb(167, 167, 167);
   border-radius: 25px;
   min-height: 120px;
@@ -10,6 +14,25 @@
 
 .Room li:hover {
   cursor: pointer;
+  flex-grow: 3;
+}
+
+.Room .headings {
+  display: flex;
+  flex-direction: column;
+}
+
+.headings > h1,
+h4 {
+  margin: 5px 0;
+}
+
+.Room .Input .input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 50px 0;
 }
 
 .Room .bottom-btn-wrapper {
@@ -19,7 +42,7 @@
   left: 0;
 
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .Room .bottom-btn-wrapper .bottom-btn {
@@ -28,12 +51,10 @@
 
 .Room .ready-btn {
   background: #00e600;
-  box-shadow: inset 8px 8px 12px #77ff77, inset -8px -5px 20px #117b11;
 }
 
 .Room .not-ready-btn {
   background: #ffcc00;
-  box-shadow: inset 8px 8px 12px #ffe681, inset -8px -5px 20px #917812;
 }
 
 .Room ul {
@@ -115,7 +136,7 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 
-  .Room li{
-    margin: 10px
+  .Room li {
+    margin: 10px;
   }
 }
