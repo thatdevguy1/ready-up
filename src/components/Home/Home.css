@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url(./readyup.webp);
 }
 
 .Home > .room-form {
@@ -12,6 +13,16 @@
   flex-direction: column;
   justify-content: center;
   margin-bottom: 49px;
+}
+
+.room-form > div {
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
 /* 
 button {

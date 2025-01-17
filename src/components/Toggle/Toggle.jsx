@@ -1,6 +1,25 @@
 import { useEffect } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { styled } from "@mui/material";
+
+const CustomToggleButton = styled(ToggleButton)(({ theme }) => ({
+  color: "#50B848",
+  backgroundColor: "black",
+  width: "170px",
+  "&.Mui-selected": {
+    color: "#fff",
+    backgroundColor: "#50B848",
+    "&:hover": {
+      color: "#fff",
+      backgroundColor: "#50B848",
+    },
+  },
+  "&:hover": {
+    color: "#fff",
+    backgroundColor: "#50B848",
+  },
+}));
 
 function Toggle({ alignment, setAlignment }) {
   const handleChange = (event, newAlignment) => {
@@ -19,8 +38,8 @@ function Toggle({ alignment, setAlignment }) {
       onChange={handleChange}
       aria-label="Platform"
     >
-      <ToggleButton value="Create">Create</ToggleButton>
-      <ToggleButton value="Join">Join</ToggleButton>
+      <CustomToggleButton value="Create">Create</CustomToggleButton>
+      <CustomToggleButton value="Join">Join</CustomToggleButton>
     </ToggleButtonGroup>
   );
 }

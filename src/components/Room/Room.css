@@ -1,6 +1,19 @@
 .Room {
   box-sizing: border-box;
   padding: 15px 20px 0;
+  background-image: url(../Home/readyup.webp);
+  height: 100vh;
+}
+
+.Room > div {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 0 20px;
+  height: 99%;
 }
 
 .message-box {
@@ -62,12 +75,13 @@ h4 {
 }
 
 .Room li {
-  border: 2px solid rgb(165, 165, 165);
+  border: 3px solid rgb(0, 0, 0);
   text-align: center;
   border-radius: 25px;
   margin: 10px 0;
   list-style: none;
   padding: 15px 0;
+  font-weight: bold;
 }
 
 /* Animation by Jerry Jones: https://codepen.io/jeryj/pen/LzPjdJ */
