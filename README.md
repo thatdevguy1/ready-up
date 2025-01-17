@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Ready Up
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://readyup-rooms.herokuapp.com/
 
-## Available Scripts
+Ready Up is a lightweight and interactive app designed to help groups track readiness during exercises, events, or other collaborative activities. The app is built using modern web technologies like React, Express, Socket.IO, and MaterialUI. It operates without a database, making it simple and efficient for real-time communication without any data persistence.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Real-time Readiness Tracking**: Instantly see who is ready to move on with the help of Socket.IO for real-time communication.
+- **User-Friendly Interface**: Built with MaterialUI to provide a clean and responsive design.
+- **Lightweight Architecture**: No database dependency; data is managed in memory for simplicity and speed.
+- **Customizable**: Easily adaptable for various use cases such as workshops, team exercises, or events.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React with MaterialUI for the user interface.
+- **Backend**: Express.js for handling API routes and server logic.
+- **Real-Time Communication**: Socket.IO for enabling live updates across clients.
 
-### `npm test`
+## Installation and Setup
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Prerequisites
 
-### `npm run build`
+- Node.js (v16 or higher)
+- npm (v8 or higher) or yarn
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Steps
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+   ```bash
+   git clone https://github.com/yourusername/ready-up.git
+   cd ready-up
+   ```
 
-### `npm run eject`
+2. Install dependencies:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Start the server:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   ```bash
+   npm start
+   ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. Start the client:
 
-## Learn More
+   ```bash
+   npm run start-react
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+5. Open your browser and navigate to:
+   ```
+   http://localhost:3000
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Usage
 
-### Code Splitting
+1. Access the app in your browser.
+2. Participants can join the session by entering their names.
+3. Click the "Ready" button to indicate readiness.
+4. The real-time interface updates instantly to show who is ready.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Structure
 
-### Analyzing the Bundle Size
+```
+ready-up/
+|
+│── src/
+│   ├── components/  # Reusable React components
+│   ├── App.js       # Main app entry point
+│   └── index.js     # React DOM rendering
+│── public/          # Static assets
+├── backend/              # Express backend
+│   ├── controllers       # User and Room controllers
+│   ├── models            # User Models
+│   ├── routes            # User and Room routes
+│   └── socket            # Socket.IO logic
+├── package.json         # Project metadata and scripts
+├── README.md            # Project documentation
+└── ...
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Contributing
 
-### Making a Progressive Web App
+Contributions are welcome! Feel free to fork this repository and submit a pull request with your enhancements.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### To-Do List
 
-### Advanced Configuration
+- [ ] Add customizable themes.
+- [ ] Implement user roles (e.g., admin to reset readiness).
+- [ ] Add persistance of user and room data for reconnects.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to use this app to keep your events organized and on track!
