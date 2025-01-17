@@ -5,6 +5,8 @@
   flex-direction: column;
   align-items: center;
   background-image: url(./readyup.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 .Home > .room-form {
