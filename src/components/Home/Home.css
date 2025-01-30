@@ -9,17 +9,6 @@
   background-position: center;
 }
 
-<<<<<<< HEAD
-.Home button {
-  width: 48%;
-}
-
-.Home .btn-wrapper {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-=======
 .Home > .room-form {
   height: calc(100vh - 49px);
   display: flex;
@@ -48,7 +37,6 @@ button {
   transition: 0.3s;
   color: rgb(16, 16, 16);
 } */
->>>>>>> c7144afc9f6630f9bcf02e5016197d5c1c8f4d01
 
 /* button:hover {
   cursor: pointer;
