@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import "./Inputs.css";
 import UserIcon from "../Icons/User";
 import SearchIcon from "../Icons/Search";
 
 function TextInput(props) {
+  const inputRef = useRef(null);
+
   const iconType = () => {
     if (props.type === "user") return <UserIcon />;
     if (props.type === "search") return <SearchIcon />;
@@ -21,6 +23,7 @@ function TextInput(props) {
           onChange={props.change}
           placeholder={props.placeholder}
           autoComplete="off"
+          ref={inputRef}
         />
       </div>
     </div>

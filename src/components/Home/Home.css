@@ -16,7 +16,3 @@ button:hover {
   cursor: pointer;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
 }
-
-btn {
-  background-color: #759bc2;
-}

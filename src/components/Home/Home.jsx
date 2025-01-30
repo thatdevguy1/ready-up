@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Input from "../Inputs/TextInput";
 import { useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
 import "./Home.css";
 import socketIo from "../../services/socket";
 
@@ -14,7 +13,6 @@ function Home({ setErrMsg }) {
   });
 
   const [createHighlighted, setCreateHighlighted] = useState(true);
-
   const [joinSelected, setJoinSelected] = useState(false);
 
   const inputsRef = useRef(inputs);
@@ -38,17 +36,17 @@ function Home({ setErrMsg }) {
   }, [createHighlighted]);
 
   const handleKeydown = (e) => {
+    if (e.keyCode === 9) return e.preventDefault();
+
     console.log(e.keyCode);
     if (e.keyCode === 13 && joinSelected === true) return handleJoinRoom();
-    console.log("not handleJoinRoom");
+
     if (e.keyCode === 37 || e.keyCode === 39)
       return setCreateHighlighted(!btnSelectorRef.current);
 
-    console.log("not selecting btn");
     if (e.keyCode === 13 && btnSelectorRef.current) return handleCreateRoom();
-    console.log("not handleCreateRoom");
+
     if (e.keyCode === 13 && !btnSelectorRef.current) return handleJoin();
-    console.log("not handleJoin");
   };
 
   const handleChange = (e) => {
