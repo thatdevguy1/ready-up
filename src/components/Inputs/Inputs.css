@@ -1,8 +1,4 @@
-.Input {
-  width: 100%;
-  padding: 5px;
-}
-
+/*
 .Input input {
   border: none;
   outline: none;
@@ -12,11 +8,20 @@
   padding: 20px 10px 20px 5px;
   width: 100%;
 }
-
+*/
 .Input > .input-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 30px;
-  border-radius: 25px;
-  box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
+}
+
+.Input > .input-wrapper > .input-icon {
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-icon {
+  margin-left: 0;
+  margin-right: 10px;
 }

@@ -4,6 +4,7 @@ import Home from "./components/Home/Home.jsx";
 import Room from "./components/Room/Room.jsx";
 import "./App.css";
 import socketIo from "./services/socket";
+import "@fontsource/roboto/400.css";
 const socket = socketIo.init();
 
 function App() {

@@ -3,10 +3,14 @@ import Input from "../Inputs/TextInput";
 import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import socketIo from "../../services/socket";
+import Toggle from "../Toggle/Toggle";
+import CreateView from "../Create-View/CreateView";
+import JoinView from "../Join-View/JoinView";
 
 function Home({ setErrMsg }) {
   let socket = socketIo.getSocket();
 
+  const [alignment, setAlignment] = React.useState("Create");
   const [inputs, setInputs] = useState({
     username: "",
     room: "",
@@ -75,54 +79,30 @@ function Home({ setErrMsg }) {
   };
 
   const handleCreateRoom = () => {
-    if (!inputsRef.current.username) return setErrMsg("Invalid username");
-    socket.auth = { username: inputsRef.current.username, reason: "create" };
+    console.log("creating room");
+    socket.auth = { username: inputs.username, reason: "create" };
     socket.connect();
     navigate("/room");
   };
 
   return (
     <div className="Home">
-      <h1>Ready Up Rooms</h1>
-      <form>
-        <Input
-          type="user"
-          name={"username"}
-          placeholder="username"
-          value={inputs.username}
-          change={handleChange}
+      <Toggle alignment={alignment} setAlignment={setAlignment} />
+      {alignment === "Create" && (
+        <CreateView
+          inputs={inputs}
+          handleChange={handleChange}
+          handleCreateRoom={handleCreateRoom}
         />
-        {joinSelected && (
-          <Input
-            type="search"
-            name={"room"}
-            placeholder="room id"
-            value={inputs.room}
-            change={handleChange}
-          />
-        )}
-        <div className="btn-wrapper">
-          {joinSelected || (
-            <button
-              style={{
-                border: createHighlighted ? "solid 1px  #246db6" : undefined,
-              }}
-              type="button"
-            >
-              Create
-            </button>
-          )}
-          <button
-            style={{
-              border: createHighlighted ? undefined : "solid 1px #246db6",
-            }}
-            type="button"
-            onClick={joinSelected ? handleJoinRoom : handleJoin}
-          >
-            Join
-          </button>
-        </div>
-      </form>
+      )}
+      {alignment === "Join" && (
+        <JoinView
+          inputs={inputs}
+          handleChange={handleChange}
+          handleJoinRoom={handleJoinRoom}
+        />
+      )}
+      {alignment === null && <h1>Choose an option</h1>}
     </div>
   );
 }
