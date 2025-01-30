@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import "./Room.css";
 import socketIo from "../../services/socket";
 import Message from "../Icons/Message";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
 export default function Room(props) {
   let socket = socketIo.getSocket();
@@ -89,10 +91,22 @@ export default function Room(props) {
         <div className="Input">
           <div className="input-wrapper">
             <Message />
-            <input type="text" value={message} onChange={handleSetMessage} />
+            <TextField
+              multiline
+              maxRows={4}
+              style={{ flex: 4 }}
+              value={message}
+              onChange={handleSetMessage}
+            />
+            <Button
+              style={{ flex: 1, marginLeft: "10px", padding: "15px 0" }}
+              variant="contained"
+              onClick={handleMessagePost}
+            >
+              Post
+            </Button>
           </div>
         </div>
-        <button onClick={handleMessagePost}>Post</button>
       </>
     ) : (
       <></>
@@ -149,46 +163,54 @@ export default function Room(props) {
 
   return (
     <div className="Room">
-      <h1>Room: {room}</h1>
-
-      <h2>participants: {users.length}</h2>
-      <div className={animateMessage ? "message-box is-active" : "message-box"}>
-        <h3>{message}</h3>
-      </div>
-      {creatorView()}
-      <ul>
-        {users.map((user) => (
-          <li
-            key={user.userId}
-            data-user-id={user.userId}
-            style={{ backgroundColor: setStatusColor(user.status) }}
+      <div>
+        <div className="headings">
+          <h1>Room: {room}</h1>
+          <h4>Participants: {users.length}</h4>
+        </div>
+        <div
+          className={animateMessage ? "message-box is-active" : "message-box"}
+        >
+          <h3>{message}</h3>
+        </div>
+        {creatorView()}
+        <ul>
+          {users.map((user) => (
+            <li
+              key={user.userId}
+              data-user-id={user.userId}
+              style={{ backgroundColor: setStatusColor(user.status) }}
+            >
+              {user.username}
+            </li>
+          ))}
+        </ul>
+        <div className="bottom-btn-wrapper">
+          <Button
+            variant="outlined"
+            className="ready-btn bottom-btn"
+            onClick={handleStatusClick}
+            data-status="ready"
           >
-            {user.username}
-          </li>
-        ))}
-      </ul>
-      <div className="bottom-btn-wrapper">
-        <button
-          className="ready-btn bottom-btn"
-          onClick={handleStatusClick}
-          data-status="ready"
-        >
-          Ready
-        </button>
-        <button
-          className="not-ready-btn bottom-btn"
-          onClick={handleStatusClick}
-          data-status="not ready"
-        >
-          More Time
-        </button>
-        <button
-          className="clear-btn bottom-btn"
-          onClick={handleStatusClick}
-          data-status="null"
-        >
-          Clear
-        </button>
+            Ready
+          </Button>
+          <Button
+            variant="outlined"
+            className="not-ready-btn bottom-btn"
+            onClick={handleStatusClick}
+            data-status="not ready"
+          >
+            More Time
+          </Button>
+          <Button
+            variant="outlined"
+            className="clear-btn bottom-btn"
+            onClick={handleStatusClick}
+            data-status="null"
+          >
+            Clear
+          </Button>
+        </div>
       </div>
     </div>
   );

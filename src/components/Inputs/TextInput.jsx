@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import "./Inputs.css";
 import UserIcon from "../Icons/User";
 import SearchIcon from "../Icons/Search";
+import TextField from "@mui/material/TextField";
 
-function TextInput(props) {
+function TextInput({ name, value, handleChange, type }) {
   const iconType = () => {
-    if (props.type === "user") return <UserIcon />;
-    if (props.type === "search") return <SearchIcon />;
+    if (type === "user") return <UserIcon />;
+    if (type === "search") return <SearchIcon />;
     return "";
   };
   return (
     <div className="Input">
       <div className="input-wrapper">
         {iconType()}
-        <input
-          type="text"
-          name={props.name}
-          value={props.value}
-          onChange={props.change}
+        <TextField
+          id="outlined-required"
+          style={{ flex: 1 }}
+          label={name}
+          name={name}
+          margin="dense"
+          value={value}
+          onChange={handleChange}
         />
       </div>
     </div>

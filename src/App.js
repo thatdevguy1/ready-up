@@ -4,11 +4,13 @@ import Home from "./components/Home/Home.jsx";
 import Room from "./components/Room/Room.jsx";
 import "./App.css";
 import socketIo from "./services/socket";
+import "@fontsource/roboto/400.css";
 const socket = socketIo.init();
 
 function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [usernameAlreadySelected, setUsernameAlreadySelected] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +26,8 @@ function App() {
       if (err.message === "invalid username") {
         setUsernameAlreadySelected(false);
       }
-      console.log(err);
+      console.log(err.message);
+      setErrMsg(err.message);
       navigate("/");
     });
 
@@ -41,8 +44,11 @@ function App() {
 
   return (
     <div className="App">
+      <h4 style={{ color: "red", right: 15, top: 0, position: "absolute" }}>
+        {errMsg}
+      </h4>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home setErrMsg={setErrMsg} />} />
         <Route path="/room" element={<Room />} />
       </Routes>
     </div>

@@ -1,7 +1,43 @@
 .Home {
-  overflow: auto;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url(./readyup.webp);
+  background-size: cover;
+  background-position: center;
 }
 
+<<<<<<< HEAD
+.Home button {
+  width: 48%;
+}
+
+.Home .btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+=======
+.Home > .room-form {
+  height: calc(100vh - 49px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 49px;
+}
+
+.room-form > div {
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10.5px);
+  -webkit-backdrop-filter: blur(10.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+/* 
 button {
   width: 100%;
   padding: 20px 10px 20px 5px;
@@ -11,9 +47,10 @@ button {
   box-shadow: inset 8px 8px 12px #ffffff, inset -8px -5px 20px #cbced1;
   transition: 0.3s;
   color: rgb(16, 16, 16);
-}
+} */
+>>>>>>> c7144afc9f6630f9bcf02e5016197d5c1c8f4d01
 
-button:hover {
+/* button:hover {
   cursor: pointer;
   box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #ffffff;
-}
+} */
